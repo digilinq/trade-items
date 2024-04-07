@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <!-- Define complex type for address -->
+    <xs:complexType name="Address">
+        <xs:sequence>
+            <xs:element name="street" type="xs:string"/>
+            <xs:element name="city" type="xs:string"/>
+            <xs:element name="postalCode" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="PersonType">
+        <xs:sequence>
+            <xs:element name="firstName" type="xs:string"/>
+            <xs:element name="lastName" type="xs:string"/>
+            <xs:element name="birthday" type="xs:date"/>
+            <xs:element name="nationalId" type="xs:string"/>
+            <xs:element name="numberOfChildren" type="xs:nonNegativeInteger"/>
+            <xs:element name="address" type="Address"/>
+            <xs:element name="parents" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="parent" type="ParentType" minOccurs="0" maxOccurs="2"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="children" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="child" type="ChildType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ChildType">
+        <xs:complexContent>
+            <xs:extension base="PersonType">
+                <xs:attribute name="gender" type="xs:string" use="required"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="ParentType">
+        <xs:complexContent>
+            <xs:extension base="PersonType">
+                <xs:attribute name="type">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:maxLength value="35"/>
+                            <xs:minLength value="1"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <!-- Define root element -->
+    <xs:element name="person" type="PersonType"/>
+
+</xs:schema>

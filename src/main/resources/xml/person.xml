@@ -1,0 +1,54 @@
+<person xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="person.xsd">
+    <firstName>string</firstName>
+    <lastName>string</lastName>
+    <birthday>2011-04-14</birthday>
+    <nationalId>string</nationalId>
+    <numberOfChildren>200</numberOfChildren>
+    <address>
+        <street>Boogschutter</street>
+        <city>Amstelveen</city>
+        <postalCode>1188 BS</postalCode>
+    </address>
+    <parents>
+        <parent type="mother">
+            <firstName>string</firstName>
+            <lastName>string</lastName>
+            <birthday>2011-04-14</birthday>
+            <nationalId>string</nationalId>
+            <numberOfChildren>200</numberOfChildren>
+            <address>
+                <street>string</street>
+                <city>string</city>
+                <postalCode>string</postalCode>
+            </address>
+        </parent>
+        <parent type="father">
+            <firstName>string</firstName>
+            <lastName>string</lastName>
+            <birthday>2011-04-14</birthday>
+            <nationalId>string</nationalId>
+            <numberOfChildren>200</numberOfChildren>
+            <address>
+                <street>string</street>
+                <city>string</city>
+                <postalCode>string</postalCode>
+            </address>
+        </parent>
+    </parents>
+    <children>
+        <child gender="female">
+            <firstName>Helma</firstName>
+            <lastName>Mohammadi</lastName>
+            <birthday>2017-03-27</birthday>
+            <nationalId>1</nationalId>
+            <numberOfChildren>0</numberOfChildren>
+            <address>
+                <street>Boogschutter</street>
+                <city>Amstelveen</city>
+                <postalCode>1188 BS</postalCode>
+            </address>
+        </child>
+    </children>
+</person>
+
