@@ -39,6 +39,21 @@
     </dependencyManagement>
 
     <dependencies>
+        <!-- Slf4j -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>2.0.12</version>
+        </dependency>
+
+        <!-- Logback -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.5.3</version>
+            <scope>test</scope>
+        </dependency>
+
         <!-- Junit 5 -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -65,22 +80,59 @@
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>target/generated-resources</directory>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>com.eightbits.commerce.retail</groupId>
                 <artifactId>gs1-schema-downloader</artifactId>
-                <version>1.0.4-SNAPSHOT</version>
+                <version>1.0.5-SNAPSHOT</version>
                 <executions>
                     <execution>
                         <goals>
                             <goal>download-gs1-schema</goal>
                         </goals>
                         <configuration>
+                            <enable>false</enable>
+                            <download>skip</download>
                             <gs1SchemaUrl>http://www.gdsregistry.org/3.1/schemas/</gs1SchemaUrl>
                             <outputDirectory>${project.basedir}/src/main/resources/gs1-schema</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>xml-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>transform</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <transformationSets>
+                        <transformationSet>
+                            <dir>src/main/resources/gs1-schema/gs1/shared</dir>
+                            <includes>
+                                <include>**/*.xsd</include>
+                            </includes>
+                            <stylesheet>src/main/resources/xslt/gs1-extract-version-as-properties.xsl</stylesheet>
+                            <fileMappers>
+                                <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
+                                    <targetExtension>.properties</targetExtension>
+                                </fileMapper>
+                            </fileMappers>
+                        </transformationSet>
+                    </transformationSets>
+                </configuration>
             </plugin>
         </plugins>
     </build>
