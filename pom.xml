@@ -134,6 +134,29 @@
                     </transformationSets>
                 </configuration>
             </plugin>
+            <!-- Generate the data model based on the xsd in current folder -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>xjc</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <packageName>com.eightbits.commerce.trade.model.gs1</packageName>
+                    <xjbSources>
+                        <xjbSource>src/main/resources/global.xjb</xjbSource>
+                    </xjbSources>
+                    <sources>
+                        <source>src/main/resources/gs1-schema/</source>
+                    </sources>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>
